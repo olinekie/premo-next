@@ -1,5 +1,5 @@
-import { machines } from "@/data/machines";
 import { notFound } from "next/navigation";
+import { getMachineById } from "@/lib/machines";
 import MachineGallery from "@/components/sprzedaz/machine-gallery";
 import Link from "next/link";
 
@@ -14,9 +14,7 @@ export default async function MachinePage({
 }: MachinePageProps) {
   const { id } = await params;
 
-  const machine = machines.find(
-    (machine) => machine.id === id
-  );
+  const machine = getMachineById(id);
 
   if (!machine) {
     notFound();

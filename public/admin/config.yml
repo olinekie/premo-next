@@ -1,0 +1,62 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/machines"
+public_folder: "/machines"
+
+collections:
+  - name: "machines"
+    label: "Maszyny"
+    label_singular: "Maszyna"
+    folder: "content/machines"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    identifier_field: "name"
+
+    fields:
+
+      - label: "Nazwa"
+        name: "name"
+        widget: "string"
+
+      - label: "Cena"
+        name: "price"
+        widget: "number"
+        value_type: "int"
+
+      - label: "Lokalizacja"
+        name: "location"
+        widget: "string"
+
+      - label: "Zdjęcie główne"
+        name: "image"
+        widget: "image"
+
+      - label: "Opis"
+        name: "description"
+        widget: "text"
+
+      - label: "Parametry techniczne"
+        name: "parameters"
+        widget: "list"
+
+        fields:
+          - label: "Parametr"
+            name: "name"
+            widget: "string"
+
+          - label: "Wartość"
+            name: "value"
+            widget: "string"
+
+      - label: "Galeria"
+        name: "images"
+        widget: "list"
+
+        field:
+          label: "Zdjęcie"
+          name: "image"
+          widget: "image"
