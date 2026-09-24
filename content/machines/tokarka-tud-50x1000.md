@@ -1,15 +1,17 @@
 ---
 name: Tokarka TUD 50x1000
-price: 40000
+price: 46000
 location: Łuków
-image: /machines/tokarka1.jpg
-description: Krótki opis
+image: /machines/1.jpg
+description: Tokarka po remoncie kapitalnym
 parameters:
-  - name: waga
-    value: 3125kg
-  - name: srednica toczenia nad lozem
-    value: 35mm
+  - name: Długość toczenia
+    value: 1000 mm
+  - name: Średnica toczenia nad łożem
+    value: 500 mm
+  - name: "Przelot wrzeciona "
+    value: 56 mm
 images:
-  - /machines/zrzut-ekranu-2026-04-19-012622.png
-  - /machines/zrzut-ekranu-2026-04-19-014358.png
+  - /machines/1.jpg
+  - /machines/5.jpg
 ---
