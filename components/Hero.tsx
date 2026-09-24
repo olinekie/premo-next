@@ -44,7 +44,7 @@ export default function Hero() {
 
         <div className="flex gap-8 mt-10">
 
-        <Link href="/uslugi"
+        <Link href=""
           className="btn-red relative text-white mx-8 my-8 px-6 py-3 hover:bg-red-700 transition">
             Usługi
             </Link>
@@ -54,7 +54,7 @@ export default function Hero() {
             Sprzedaż
             </Link>
 
-          <Link href="/Contact.tsx"
+          <Link href="/#kontakt"
           className="btn-red relative text-white mx-8 my-8 px-6 py-3 hover:bg-red-700 transition">
             Kontakt
             </Link>

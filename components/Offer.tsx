@@ -59,7 +59,7 @@ export default function Offer() {
     <div className="flex justify-center gap-6 mt-16">
 
       <Link
-        href="/uslugi"
+        href=""
         className="btn-red text-white px-6 py-3 hover:bg-red-700 transition"
       >
         Usługi
