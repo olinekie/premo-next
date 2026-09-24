@@ -7,10 +7,14 @@ description: Tokarka po remoncie kapitalnym
 parameters:
   - name: Długość toczenia
     value: 1000 mm
-  - name: Średnica toczenia nad łożem
-    value: 500 mm
   - name: "Przelot wrzeciona "
     value: 56 mm
+  - name: Średnica toczenia nad łożem
+    value: 500 mm
+  - name: Średnica toczenia nad suportem
+    value: 300 mm
+  - name: Silnik główny dwubiegowy
+    value: 4/6,7 kW
 images:
   - /machines/1.jpg
   - /machines/5.jpg
