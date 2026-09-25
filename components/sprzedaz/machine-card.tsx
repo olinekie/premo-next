@@ -28,7 +28,7 @@ export default function MachineCard({
           <h2>{machine.name}</h2>
 
           <p className="machine-card-price">
-            {machine.price.toLocaleString("pl-PL")} zł
+            {machine.price.toLocaleString("pl-PL")} zł netto
           </p>
 
           <p className="machine-card-location">

@@ -50,7 +50,7 @@ export default async function MachinePage({
             <h1>{machine.name}</h1>
 
             <p className="machine-page-price">
-              {machine.price.toLocaleString("pl-PL")} zł
+              {machine.price.toLocaleString("pl-PL")} zł netto
             </p>
 
             <p className="machine-page-location">
