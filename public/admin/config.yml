@@ -19,7 +19,6 @@ collections:
     identifier_field: "name"
 
     fields:
-
       - label: "Nazwa"
         name: "name"
         widget: "string"
@@ -41,18 +40,82 @@ collections:
         name: "description"
         widget: "text"
 
+      # =========================
+      # PARAMETRY TECHNICZNE
+      # =========================
+
       - label: "Parametry techniczne"
         name: "parameters"
-        widget: "list"
+        widget: "object"
 
         fields:
-          - label: "Parametr"
+
+          - label: "Maksymalna długość toczenia w kłach"
+            name: "turning_length"
+            widget: "string"
+            required: false
+
+          - label: "Maksymalna średnica toczenia nad łożem"
+            name: "turning_diameter_bed"
+            widget: "string"
+            required: false
+
+          - label: "Maksymalna średnica toczenia nad suportem"
+            name: "turning_diameter_support"
+            widget: "string"
+            required: false
+
+          - label: "Przelot wrzeciona"
+            name: "spindle_bore"
+            widget: "string"
+            required: false
+
+          - label: "Moc silnika głównego"
+            name: "main_motor_power"
+            widget: "string"
+            required: false
+
+          - label: "Ciężar maszyny"
+            name: "weight"
+            widget: "string"
+            required: false
+
+      # =========================
+      # DODATKOWE PARAMETRY
+      # =========================
+
+      - label: "Dodatkowe parametry"
+        name: "additional_parameters"
+        widget: "list"
+        required: false
+
+        fields:
+
+          - label: "Nazwa parametru"
             name: "name"
             widget: "string"
 
           - label: "Wartość"
             name: "value"
             widget: "string"
+
+      # =========================
+      # DODATKOWE ZALETY
+      # =========================
+
+      - label: "Dodatkowe zalety"
+        name: "advantages"
+        widget: "list"
+        required: false
+
+        field:
+          label: "Zaleta"
+          name: "advantage"
+          widget: "string"
+
+      # =========================
+      # GALERIA
+      # =========================
 
       - label: "Galeria"
         name: "images"

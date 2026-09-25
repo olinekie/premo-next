@@ -37,10 +37,12 @@ export default async function MachinePage({
           {/* GALERIA */}
 
           <div className="machine-page-gallery">
+
             <MachineGallery
               images={machine.images}
               name={machine.name}
             />
+
           </div>
 
           {/* INFORMACJE */}
@@ -58,9 +60,13 @@ export default async function MachinePage({
             </p>
 
             <div className="machine-description">
+
               <h2>Opis</h2>
 
-              <p>{machine.description}</p>
+              <p>
+                {machine.description}
+              </p>
+
             </div>
 
             <Link
@@ -74,13 +80,17 @@ export default async function MachinePage({
 
         </div>
 
-        {/* PARAMETRY */}
+        {/* ==========================================
+            PARAMETRY TECHNICZNE
+            ========================================== */}
 
         <section className="machine-parameters">
 
           <h2>Parametry techniczne</h2>
 
           <div className="parameters-table">
+
+            {/* Podstawowe parametry */}
 
             {Object.entries(machine.parameters).map(
               ([name, value]) => (
@@ -89,7 +99,27 @@ export default async function MachinePage({
                   key={name}
                 >
                   <span>{name}</span>
+
                   <strong>{value}</strong>
+                </div>
+              )
+            )}
+
+            {/* Dodatkowe parametry */}
+
+            {machine.additionalParameters.map(
+              (parameter) => (
+                <div
+                  className="parameter-row"
+                  key={`additional-${parameter.name}`}
+                >
+                  <span>
+                    {parameter.name}
+                  </span>
+
+                  <strong>
+                    {parameter.value}
+                  </strong>
                 </div>
               )
             )}
@@ -97,6 +127,28 @@ export default async function MachinePage({
           </div>
 
         </section>
+
+        {/* ==========================================
+            DODATKOWE ZALETY
+            ========================================== */}
+
+        {machine.advantages.length > 0 && (
+          <section className="machine-advantages">
+
+            <h2>Dodatkowe zalety</h2>
+
+            <ul>
+              {machine.advantages.map(
+                (advantage) => (
+                  <li key={advantage}>
+                    {advantage}
+                  </li>
+                )
+              )}
+            </ul>
+
+          </section>
+        )}
 
       </div>
 

@@ -13,6 +13,35 @@ type RawParameter = {
   value: string;
 };
 
+type RawAdditionalParameter = {
+  name: string;
+  value: string;
+};
+
+/*
+ * Nazwy techniczne używane wewnątrz pliku Markdown
+ * → nazwy wyświetlane użytkownikowi na stronie.
+ */
+const parameterLabels: Record<string, string> = {
+  turning_length:
+    "Maksymalna długość toczenia w kłach",
+
+  turning_diameter_bed:
+    "Maksymalna średnica toczenia nad łożem",
+
+  turning_diameter_support:
+    "Maksymalna średnica toczenia nad suportem",
+
+  spindle_bore:
+    "Przelot wrzeciona",
+
+  main_motor_power:
+    "Moc silnika głównego",
+
+  weight:
+    "Ciężar maszyny",
+};
+
 export function getMachines(): Machine[] {
   const files = fs.readdirSync(machinesDirectory);
 
@@ -31,31 +60,129 @@ export function getMachines(): Machine[] {
 
       const { data } = matter(fileContent);
 
+      /*
+       * ==========================================
+       * PARAMETRY TECHNICZNE
+       * ==========================================
+       */
+
       let parameters: Record<string, string> = {};
 
+      /*
+       * Obsługa starego formatu:
+       *
+       * parameters:
+       *   - name: "Przelot wrzeciona"
+       *     value: "52 mm"
+       */
       if (Array.isArray(data.parameters)) {
         parameters = Object.fromEntries(
-          (data.parameters as RawParameter[]).map(
-            (parameter) => [
+          (data.parameters as RawParameter[])
+            .filter(
+              (parameter) =>
+                parameter.name?.trim() &&
+                parameter.value?.trim()
+            )
+            .map((parameter) => [
               parameter.name,
               parameter.value,
-            ]
-          )
+            ])
         );
-      } else if (
+      }
+
+      /*
+       * Obsługa nowego formatu:
+       *
+       * parameters:
+       *   turning_length: "1000 mm"
+       *   spindle_bore: "52 mm"
+       */
+      else if (
         data.parameters &&
         typeof data.parameters === "object"
       ) {
-        parameters = data.parameters;
+        parameters = Object.fromEntries(
+          Object.entries(data.parameters)
+            .filter(
+              ([, value]) =>
+                value !== null &&
+                value !== undefined &&
+                String(value).trim() !== ""
+            )
+            .map(([name, value]) => [
+              parameterLabels[name] ?? name,
+              String(value),
+            ])
+        );
       }
+
+      /*
+       * ==========================================
+       * DODATKOWE PARAMETRY
+       * ==========================================
+       */
+
+      const additionalParameters =
+        Array.isArray(data.additional_parameters)
+          ? (
+              data.additional_parameters as RawAdditionalParameter[]
+            ).filter(
+              (parameter) =>
+                parameter.name?.trim() &&
+                parameter.value?.trim()
+            )
+          : [];
+
+      /*
+       * ==========================================
+       * DODATKOWE ZALETY
+       * ==========================================
+       */
+
+      const advantages = Array.isArray(data.advantages)
+        ? data.advantages
+            .map((item: unknown) => {
+              /*
+               * Decap może zapisać zaletę jako:
+               *
+               * - advantage: "Gotowa do pracy"
+               */
+
+              if (
+                typeof item === "object" &&
+                item !== null &&
+                "advantage" in item
+              ) {
+                return String(
+                  (item as { advantage: unknown })
+                    .advantage
+                );
+              }
+
+              /*
+               * Obsługa również zwykłego:
+               *
+               * - "Gotowa do pracy"
+               */
+
+              return String(item);
+            })
+            .filter(
+              (item) => item.trim() !== ""
+            )
+        : [];
 
       return {
         ...data,
 
-        // ID pobieramy z nazwy pliku
+        // ID pochodzi z nazwy pliku
         id: path.basename(file, ".md"),
 
         parameters,
+
+        additionalParameters,
+
+        advantages,
       } as Machine;
     });
 }

@@ -10,6 +10,13 @@ export type Machine = {
     [key: string]: string;
   };
 
+  additionalParameters: {
+    name: string;
+    value: string;
+  }[];
+
+  advantages: string[];
+
   images: string[];
 };
 
@@ -34,6 +41,10 @@ export const machines: Machine[] = [
       "Moc silnika": "7,5 kW",
     },
 
+    additionalParameters: [],
+
+    advantages: [],
+
     images: [
       "/machines/tur-50/1.jpg",
       "/machines/tur-50/2.jpg",
@@ -41,6 +52,4 @@ export const machines: Machine[] = [
       "/machines/tur-50/4.jpg",
     ],
   },
-
-  // Tutaj możesz dodawać kolejne maszyny
 ];
